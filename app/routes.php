@@ -25,8 +25,8 @@ Route::get('/openid', function()
     return View::make('hello');
 });
 
-Route::get('login/openid', 'AuthController@openIDLogin');
-Route::get('logout/openid', 'AuthController@openIDLogout');
+Route::get('login/openid', ['as' => 'login/openid', 'uses' => 'AuthController@openIDLogin']);
+Route::get('logout/openid', ['as' => 'logout/openid', 'uses' => 'AuthController@openIDLogout']);
 Route::get('user/data/show', 'AuthController@showUserData');
 
 
@@ -65,7 +65,9 @@ Route::get('/{id}', array('as' => 'vote.edit', function($id)
 Route::get('/manage', array('as' => 'manage', function() 
     {
         $time_now = Carbon::now();
+
         $votes = Vote::get();
+        //dd($votes);
         $ary[0] = $votes;
         foreach ($ary[0] as $vote){
            // $candidate = Candidate::find($vote->id);
@@ -223,7 +225,10 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
             $can_select = $vote->can_select;
             $candidates = Candidate::where('vote_id', '=', $account->vote_id)->get();
             $account_id = Session::get('account_id', '這是預設值，沒設定過就用這個囉！！');
-            $err_msg = '超過可選數目';
+            $err_msg = '';
+                echo '<script type="text/javascript">';
+                echo 'alert("超過可選數目!")';
+                echo '</script>';
             return View::make('tasks.candidate_select',compact('candidates', 'account_id','err_msg','can_select'));
         }
         else//再一次判斷是否投過票了！*************
