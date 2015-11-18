@@ -8,7 +8,7 @@
 
 
 @section('content')
-<div class="col-md-6">
+<div class="col-md-6" style="background-color:#FFBB73;">
 	<h3>投票系統管理</h3>
 	<a href="{{ url('/insert-first') }}"><strong>新增</strong></a>	                                               	
 	<ul class="list-group">
