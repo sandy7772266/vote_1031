@@ -83,6 +83,71 @@ Route::get('/manage', array('as' => 'manage', function()
         return View::make('tasks.vote-manage-index',compact('ary','time_now'));
     }));
 
+Route::get('/voting', array('as' => 'voting', function() 
+    {
+        $time_now = Carbon::now();
+
+        $votes = Vote::get();
+        //dd($votes);
+        $ary[0] = $votes;
+        foreach ($ary[0] as $vote){
+           // $candidate = Candidate::find($vote->id);
+            $candidate_c = Candidate::where('vote_id', '=', $vote->id)->first();
+            if ($candidate_c <> null){
+                $ary[1][$vote->id] = $candidate_c->vote_id;
+            }
+            else{
+                $ary[1][$vote->id] = '沒有資料';
+            }
+        }
+        // return our view and Vote information
+        return View::make('tasks.voting',compact('ary','time_now'));
+    }));
+
+Route::get('/votes_not_yet', array('as' => 'votes_not_yet', function() 
+    {
+        $time_now = Carbon::now();
+
+        $votes = Vote::get();
+        //dd($votes);
+        $ary[0] = $votes;
+        foreach ($ary[0] as $vote){
+           // $candidate = Candidate::find($vote->id);
+            $candidate_c = Candidate::where('vote_id', '=', $vote->id)->first();
+            if ($candidate_c <> null){
+                $ary[1][$vote->id] = $candidate_c->vote_id;
+            }
+            else{
+                $ary[1][$vote->id] = '沒有資料';
+            }
+        }
+        // return our view and Vote information
+        return View::make('tasks.votes_not_yet',compact('ary','time_now'));
+    }));
+
+
+Route::get('/votes_done', array('as' => 'votes_done', function() 
+    {
+        $time_now = Carbon::now();
+
+        $votes = Vote::get();
+        //dd($votes);
+        $ary[0] = $votes;
+        foreach ($ary[0] as $vote){
+           // $candidate = Candidate::find($vote->id);
+            $candidate_c = Candidate::where('vote_id', '=', $vote->id)->first();
+            if ($candidate_c <> null){
+                $ary[1][$vote->id] = $candidate_c->vote_id;
+            }
+            else{
+                $ary[1][$vote->id] = '沒有資料';
+            }
+        }
+        // return our view and Vote information
+        return View::make('tasks.votes_done',compact('ary','time_now'));
+    }));
+
+
 Route::get('/candidate_data_show/{id}', array('as' => 'candidate_data_show', function($id) 
     {
         $candidates = Candidate::where('vote_id', '=', $id)->get();

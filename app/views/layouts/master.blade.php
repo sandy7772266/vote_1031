@@ -42,10 +42,10 @@
           <ul class="dropdown-menu">
             <li><a href="{{url('/insert-first') }}">新增</a></li>
                    <li role="separator" class="divider"></li>
-            <li><a href="#">投票進行中</a></li>
-            <li><a href="#">尚未投票</a></li>
+            <li><a href="{{route('voting')}}">投票進行中</a></li>
+            <li><a href="{{route('votes_not_yet')}}">尚未投票</a></li>
  
-            <li><a href="#">投票已完成</a></li>
+            <li><a href="{{route('votes_done')}}">投票已完成</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="{{route('logout/openid')}}">管理者登出</a></li>
           </ul>
