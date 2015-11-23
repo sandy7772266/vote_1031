@@ -158,8 +158,35 @@ Route::get('/candidate_data_show/{id}', array('as' => 'candidate_data_show', fun
 
 Route::get('/candidates_select/', array('as' => 'candidates_select', function()
 {
+    $srch_msg = "";
+    $array_s = array();
+    $array_s_n = array();
     $data = Input::all();
-    $id = $data['vote_id'];
+    (count($data));
+    //dd(array_key_exists("vote_id",$data));
+    if (array_key_exists("vote_id",$data)){
+        
+            $vote_id = $data['vote_id'];
+            //dd('o');
+            $account = $data['account'];
+            Session::put('vote_id', $vote_id);
+            Session::put('account', $account);
+        }
+    else{
+        $vote_id = Session::get('vote_id');
+        $account = Session::get('account');
+        $search_text = $data['candidate_search'];
+    }
+
+    
+    
+    
+    // if ($data['candidate_search'])
+    // {
+    //     $search_text = $data['candidate_search'];
+    // }
+    //dd($search_text);
+    
 
 //      WHERE (a=1 OR b=1) AND (c=1 OR d=1)*****
 //    Acount::where(function ($query) {
@@ -170,7 +197,7 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
 //    });
 
     try {
-        $account = Account::where('vote_id', '=', $data['vote_id'])->where('username', '=', $data['account'])->firstorfail();
+        $account = Account::where('vote_id', '=', $vote_id)->where('username', '=', $account)->firstorfail();
         $account_id = $account->id;
         $candidates = $account->candidates()->get();
 
@@ -180,7 +207,7 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
             return View::make('tasks.index2', compact('votes','err'));
         }
 ///////
-        $vote_id =$data['vote_id'];
+        //$vote_id =$data['vote_id'];
         $vote = Vote::find($vote_id);
        //dd($vote);
         $time_now = Carbon::now();
@@ -198,11 +225,40 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
         else
         {
        // dd($vote[0]->can_select);
-       $can_select = $vote->can_select;
+        $can_select = $vote->can_select;
         $err_msg = '';
         Session::put('account_id', $account_id);
-        $candidates = Candidate::where('vote_id', '=', $id)->get();
-        return View::make('tasks.candidate_select', compact('candidates', 'account_id','can_select','err_msg'));
+        $candidates = Candidate::where('vote_id', '=', $vote_id)->get();
+
+         if (!array_key_exists("vote_id",$data)){
+        
+            foreach ($candidates as $candidate){
+                //$num = strpos($candidate->cname,$search_text);
+                if (is_integer(strpos($candidate->cname,$search_text))){
+                     $array_s[]= $candidate;
+                }
+                else{
+                    $array_s_n[]= $candidate;
+                }
+            }
+            $candidates = $array_s;
+
+
+           
+for ($x = 0; $x < count($array_s_n); $x++)
+{
+    $candidates[] = $array_s_n[$x];
+}
+
+
+
+            if ($array_s == null){
+                $srch_msg = "搜尋不到";
+            }
+        }
+
+
+        return View::make('tasks.candidate_select', compact('candidates', 'account_id','can_select','err_msg','srch_msg'));
         }
 
     } catch(ModelNotFoundException $e) {
@@ -259,7 +315,22 @@ Route::get('/vote_result_show/{id}', array('as' => 'vote_result_show', function(
 
 
     return View::make('tasks.vote_result_show',compact('candidates','id'));
+}))->where('id','[0-9]+');
+
+Route::get('/vote_result_show_test/{id}', array('as' => 'vote_result_show_test', function($id){
+          $candidates = Candidate::where('vote_id', '=', $id)->orderBy('total_count', 'desc')->get();
+//        $votes = Vote::where('school_no', '=', $id)->get();
+//        $school_no = $votes[0]->school_no;
+//        $vote_amount = $votes[0]->vote_amount;
+//        $redo = 0;
+//        $data = [$accounts,$school_no,$vote_amount,$redo];
+          //$data_test = "test";
+        // return our view and Vote information
+
+
+    return View::make('tasks.vote_result_show_test',compact('candidates','id'));
 }));
+
 
 Route::get('/votes_from_whom/{id}', array('as' => 'votes_from_whom', function($id){
     $accounts = Candidate::find($id)->accounts()->get();

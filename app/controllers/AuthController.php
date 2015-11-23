@@ -11,7 +11,7 @@ class AuthController extends BaseController {
 		try{
 
 			// $openid = new LightOpenID('my-host.example.org');
-			$openid = new LightOpenID('192.168.10.10');
+			$openid = new LightOpenID('http://10.231.87.225:81/');
 
 			if(!$openid->mode){
 				// 第一步驟

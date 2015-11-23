@@ -4,9 +4,10 @@
 
 
 @section('content')
-<div class="col-md-6">
-	
-	
+<h3>投票結果</h3>
+
+	<div class="col-md-6">
+		<ul class="list-group">
 
 		@foreach ($candidates as $candidate)
 			<li class="list-group-item">
@@ -23,7 +24,6 @@
 
 			</li>
 		@endforeach
-	
-</div>
-
+	</ul>
+	</div>
 @stop

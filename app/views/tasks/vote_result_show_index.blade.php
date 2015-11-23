@@ -25,13 +25,7 @@
 
 
 				</td>
-				<td>
-				{{--@if ( $can_id <> null )--}}
-				{{--<a href="{{ url('/insert-second', array($vote->id), false) }}"><strong>重新上傳選項內容</strong></a>--}}
-				{{--@else--}}
-				{{--<a href="{{ url('/insert-second', array($vote->id), false) }}"><strong>上傳選項內容</strong></a>--}}
-				{{--@endif--}}
-				</td>
+				
 				</tr>
 				</table>
 			</li>

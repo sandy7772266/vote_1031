@@ -3,7 +3,10 @@
                      <input type="text" class="form-control" placeholder="投票代號...." autofocus required
                       name="vote_id" />
                      <input type="text" class="form-control" placeholder="籤號...." autofocus required
-                       name="account" />
+                       name="account" /> 
+                   
+                  
+
 
                     <input type="submit"  />
 {{ Form::close() }}

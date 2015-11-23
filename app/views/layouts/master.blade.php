@@ -27,7 +27,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="/">Laravel Vote App</a>
+					<a class="navbar-brand" href="{{route('home')}}">Laravel Vote App</a>
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav test">
