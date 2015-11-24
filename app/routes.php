@@ -379,14 +379,17 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
             $candidates = Candidate::where('vote_id', '=', $account->vote_id)->get();
             $account_id = Session::get('account_id', '這是預設值，沒設定過就用這個囉！！');
             $err_msg = '';
+            $srch_msg = '';
                 echo '<script type="text/javascript">';
                 echo 'alert("超過可選數目!")';
                 echo '</script>';
-            return View::make('tasks.candidate_select',compact('candidates', 'account_id','err_msg','can_select'));
+            return View::make('tasks.candidate_select',compact('candidates', 'account_id','err_msg','can_select','srch_msg'));
         }
         else//再一次判斷是否投過票了！*************
         {
             echo "投票完成！<br>您選擇的是：<br>";
+            //$data = Input::all();
+            //dd($data['candidate'][0]);
              foreach ($cadidates_checked as $candidate_id){
                  $candidate = Candidate::find($candidate_id);
                  echo ($candidate->cname);
@@ -397,6 +400,24 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
              }
         }
         //echo $account_id;
+    }
+    else{
+
+            $account_id = Session::get('account_id', '這是預設值，沒設定過就用這個囉！！');
+            //echo $account_id;
+
+           //dd('5');
+            $account = Account::find($account_id);
+            $vote = Vote::find($account->vote_id);
+            $can_select = $vote->can_select;
+            $candidates = Candidate::where('vote_id', '=', $account->vote_id)->get();
+            $account_id = Session::get('account_id', '這是預設值，沒設定過就用這個囉！！');
+            $err_msg = '';
+            $srch_msg = '';
+                echo '<script type="text/javascript">';
+                echo 'alert("您沒有選擇任何選項!")';
+                echo '</script>';
+            return View::make('tasks.candidate_select',compact('candidates', 'account_id','err_msg','can_select','srch_msg'));
     }
     // return our view and Vote information
    // return View::make('tasks.candidate_select_result',compact('candidates'));

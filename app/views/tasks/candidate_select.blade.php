@@ -10,7 +10,7 @@
 	{{ Form::open(['class' => 'form','method'=>'get','route'=>['candidates_select']]) }}
 	@for ($i = 0; $i < $can_select; $i++)
 
-                    <input tabindex="1" type="text" class="form-control" placeholder="投票代號...." 
+                    <input tabindex="1" type="text" class="form-control" placeholder="搜尋文字...." 
                       name="candidate_search[]" value=""/>
                    
 	@endfor 
