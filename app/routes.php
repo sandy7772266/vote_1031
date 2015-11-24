@@ -158,11 +158,13 @@ Route::get('/candidate_data_show/{id}', array('as' => 'candidate_data_show', fun
 
 Route::get('/candidates_select/', array('as' => 'candidates_select', function()
 {
+    $find_s = false;
     $srch_msg = "";
     $array_s = array();
     $array_s_n = array();
     $data = Input::all();
     (count($data));
+    //dd($data);
     //dd(array_key_exists("vote_id",$data));
     if (array_key_exists("vote_id",$data)){
         
@@ -175,7 +177,7 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
     else{
         $vote_id = Session::get('vote_id');
         $account = Session::get('account');
-        $search_text = $data['candidate_search'];
+        //$search_text = $data['candidate_search'];
     }
 
     
@@ -231,15 +233,30 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
         $candidates = Candidate::where('vote_id', '=', $vote_id)->get();
 
          if (!array_key_exists("vote_id",$data)){
-        
+        //dd($candidates);
             foreach ($candidates as $candidate){
-                //$num = strpos($candidate->cname,$search_text);
-                if (is_integer(strpos($candidate->cname,$search_text))){
-                     $array_s[]= $candidate;
+                for ($x = 0; $x < $can_select; $x++)
+                {
+
+                    //$num = strpos($candidate->cname,$search_text);
+                    if ($data['candidate_search'][$x] <> ""){
+                    if (is_integer(strpos($candidate->cname,$data['candidate_search'][$x])))
+                    {
+                        if ($find_s <> true)
+                        {
+                             $array_s[]= $candidate;
+                             $find_s = true;
+                        }
+                         
+                    }
+                    }
                 }
-                else{
+                if ($find_s <> true)
+                {
                     $array_s_n[]= $candidate;
                 }
+                $find_s = false;
+                
             }
             $candidates = $array_s;
 

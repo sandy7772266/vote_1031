@@ -4,15 +4,16 @@
 
 
 @section('content')
-	票數限制： {{$can_select}}(此頁尚待修改成同時搜尋數個選項)
+	票數限制： {{$can_select}}
 	<br>
 	<div class="col-md-6">
 	{{ Form::open(['class' => 'form','method'=>'get','route'=>['candidates_select']]) }}
-	                 
-                    <input type="text" class="form-control" placeholder="投票代號...." autofocus required
-                      name="candidate_search" />
-                   
+	@for ($i = 0; $i < $can_select; $i++)
 
+                    <input tabindex="1" type="text" class="form-control" placeholder="投票代號...." 
+                      name="candidate_search[]" value=""/>
+                   
+	@endfor 
                     <input type="submit"  value="搜尋"/>
 	{{ Form::close() }}
 
