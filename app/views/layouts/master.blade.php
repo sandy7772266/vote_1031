@@ -40,7 +40,7 @@
  <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">管理畫面 <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="{{url('/insert-first') }}">新增</a></li>
+            <li><a href="{{route('vote.insert-first')}}">新增</a></li>
                    <li role="separator" class="divider"></li>
             <li><a href="{{route('voting')}}">投票進行中</a></li>
             <li><a href="{{route('votes_not_yet')}}">尚未投票</a></li>
@@ -49,7 +49,7 @@
             <li role="separator" class="divider"></li>
             <li><a href="{{route('logout/openid')}}">管理者登出</a></li>
           </ul>
-        </li>
+ </li>
 
 
 

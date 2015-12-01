@@ -161,6 +161,7 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
     $find_s = false;
     $srch_msg = "";
     $array_s = array();
+    $v = array();
     $array_s_n = array();
     $data = Input::all();
     (count($data));
@@ -235,20 +236,29 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
          if (!array_key_exists("vote_id",$data)){
         //dd($candidates);
             foreach ($candidates as $candidate){
-                for ($x = 0; $x < $can_select; $x++)
+
+                             mb_regex_encoding('UTF-8');
+                             mb_internal_encoding("UTF-8"); 
+                             $v = mb_split('、',$data['candidate_search'][0] );
+                             
+                         //dd($v);
+
+                for ($x = 0; $x < count($v); $x++)
                 {
 
                     //$num = strpos($candidate->cname,$search_text);
-                    if ($data['candidate_search'][$x] <> ""){
-                    if (is_integer(strpos($candidate->cname,$data['candidate_search'][$x])))
-                    {
-                        if ($find_s <> true)
+                    if ($v[$x] <> ""){
+
+
+                        if (is_integer(strpos($candidate->cname,$v[$x])))
                         {
-                             $array_s[]= $candidate;
-                             $find_s = true;
+                            if ($find_s <> true)
+                            {
+                                 $array_s[]= $candidate;
+                                 $find_s = true;
+                            }
+                             
                         }
-                         
-                    }
                     }
                 }
                 if ($find_s <> true)

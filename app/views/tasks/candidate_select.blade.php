@@ -6,14 +6,16 @@
 @section('content')
 	票數限制： {{$can_select}}
 	<br>
+	搜尋多個項目時，請以、隔開，例如：筱、名、大華
+	<br>
 	<div class="col-md-6">
 	{{ Form::open(['class' => 'form','method'=>'get','route'=>['candidates_select']]) }}
-	@for ($i = 0; $i < $can_select; $i++)
+	
 
                     <input tabindex="1" type="text" class="form-control" placeholder="搜尋文字...." 
                       name="candidate_search[]" value=""/>
                    
-	@endfor 
+	
                     <input type="submit"  value="搜尋"/>
 	{{ Form::close() }}
 
