@@ -7,12 +7,12 @@
 		{{ HTML::style('css/application.css') }}
 		{{ HTML::style('js/jquery-2.0.3.min.js') }}
 		{{ HTML::style('js/application.js') }}
-		<link rel="stylesheet" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" href="css/application.css" />
+		<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+		<link rel="stylesheet" href="{{ asset('css/application.css') }}" />
 		
-		<script src="js/jquery-2.0.3.min.js" type="text/javascript"></script>
-		<script src="js/application.js" type="text/javascript"></script>
-			<script src="js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="{{ asset('js/jquery-2.0.3.min.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('js/application.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
 	</head>
 		
 	<body>
