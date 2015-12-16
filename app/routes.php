@@ -397,6 +397,17 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
         }
         else//再一次判斷是否投過票了！*************
         {
+
+//            try {
+               // $account = Account::where('vote_id', '=', $vote_id)->where('username', '=', $account)->firstorfail();
+                $account_id = $account->id;
+                $candidates = $account->candidates()->get();
+
+                if (!$candidates->isEmpty()) {
+                    $err = "此籤號已於" . $candidates[0]->updated_at . "投票";
+                    return View::make('tasks.index2', compact('votes', 'err'));
+                }
+//            }
             echo "投票完成！<br>您選擇的是：<br>";
             //$data = Input::all();
             //dd($data['candidate'][0]);
