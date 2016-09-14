@@ -25,6 +25,11 @@ Route::get('/openid', function()
     return View::make('hello');
 });
 
+Route::get('/a0002', function()
+{
+    return View::make('tasks.a002');
+});
+
 Route::get('login/openid', ['as' => 'login/openid', 'uses' => 'AuthController@openIDLogin']);
 Route::get('logout/openid', ['as' => 'logout/openid', 'uses' => 'AuthController@openIDLogout']);
 Route::get('user/data/show', 'AuthController@showUserData');
@@ -36,6 +41,14 @@ Route::get('/insert-first', array('as' => 'vote.insert-first', function()
         // return our view and Vote information
         return View::make('tasks.vote-insert-first', compact('votes'));
     }));
+
+Route::get('/insert-first2', array('as' => 'vote.insert-first2', function() 
+    {
+        $votes = Vote::get();
+        // return our view and Vote information
+        return View::make('tasks.vote-insert-first2', compact('votes'));
+    }));
+
 Route::get('/insert-second/{id}', array('as' => 'vote.insert-second', function($id) 
     {
         //$votes = Vote::get();
@@ -206,7 +219,7 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
 
         if (!$candidates->isEmpty())
         {
-            $err = "此籤號已於" . $candidates[0]->updated_at . "投票";
+            $err = "此籤號已於" . $candidates[0]->updated_at . "投票，投給" . $candidates[0]->cname;
             return View::make('tasks.index2', compact('votes','err'));
         }
 ///////
@@ -272,10 +285,10 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
 
 
            
-for ($x = 0; $x < count($array_s_n); $x++)
-{
-    $candidates[] = $array_s_n[$x];
-}
+            for ($x = 0; $x < count($array_s_n); $x++)
+            {
+                $candidates[] = $array_s_n[$x];
+            }
 
 
 
@@ -404,7 +417,7 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
                 $candidates = $account->candidates()->get();
 
                 if (!$candidates->isEmpty()) {
-                    $err = "此籤號已於" . $candidates[0]->updated_at . "投票";
+                    $err = "此籤號已於" . $candidates[0]->updated_at . "投票，投給" . $candidates[0]->cname;
                     return View::make('tasks.index2', compact('votes', 'err'));
                 }
 //            }

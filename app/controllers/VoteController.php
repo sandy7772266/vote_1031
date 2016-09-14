@@ -148,7 +148,7 @@ class VoteController extends \BaseController {
 		//Session::flush();
 		//return Redirect::route('vote.insert-second', array('vote_id' => $vote_id));	 
 		if ($redo == 1){
-			return Redirect::route('manage');
+			return Redirect::route('votes_not_yet');
 			//return Redirect::route('vote.insert-second', array('vote_id' => $vote_id));	
 		}
 		//Session::put('vote_id_insert', $vote_id);
@@ -233,7 +233,7 @@ class VoteController extends \BaseController {
 		];
 
 		//return Redirect::to('/');
-		return Redirect::route('manage');
+		return Redirect::route('votes_not_yet');
 	}
     //修改部分 end
 
@@ -259,7 +259,7 @@ class VoteController extends \BaseController {
 						'msg' => '待辦事項已刪除！']
 		];
 
-		return Redirect::route('manage');
+		return Redirect::route('votes_not_yet');
 	}
 
 

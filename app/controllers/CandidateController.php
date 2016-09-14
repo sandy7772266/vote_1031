@@ -145,7 +145,7 @@ class CandidateController extends \BaseController {
 
 				//File::delete($file);
 			}
-			return Redirect::route('manage');
+			return Redirect::route('votes_not_yet');
 
 
 	}
@@ -206,7 +206,7 @@ class CandidateController extends \BaseController {
 		];
 
 		//return Redirect::to('/');
-		return Redirect::route('manage');
+		return Redirect::route('votes_not_yet');
 	}
     //修改部分 end
 
