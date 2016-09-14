@@ -25,7 +25,7 @@ Route::get('/openid', function()
     return View::make('hello');
 });
 
-Route::get('/a0002', function()
+Route::get('/a002', function()
 {
     return View::make('tasks.a002');
 });
