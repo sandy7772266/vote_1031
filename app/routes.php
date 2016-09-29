@@ -220,13 +220,13 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
         if (!$candidates->isEmpty())
         {
             
-            $candidate_name = '';
+            $candidate_names = '';
             foreach ($candidates as $candidate) {
-                $candidate_name =  $candidate_name . $candidate->cname;
-                $candidate_name =  $candidate_name . '**';
+                $candidate_names =  $candidate_names . $candidate->cname;
+                $candidate_names =  $candidate_names . '**';
             }
 
-            $err = "此籤號已於" . $candidates[0]->updated_at . "投票，投給" . $candidate_name;
+            $err = "此籤號已於" . $candidates[0]->updated_at . "投票，投給" . $candidate_names;
             return View::make('tasks.index2', compact('votes','err'));
         }
 ///////
