@@ -219,7 +219,14 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
 
         if (!$candidates->isEmpty())
         {
-            $err = "此籤號已於" . $candidates[0]->updated_at . "投票，投給" . $candidates[0]->cname;
+            
+            $candidate_name = '';
+            foreach ($candidates as $candidate) {
+                $candidate_name =  $candidate_name . $candidate->cname;
+                $candidate_name =  $candidate_name . '**';
+            }
+
+            $err = "此籤號已於" . $candidates[0]->updated_at . "投票，投給" . $candidate_name;
             return View::make('tasks.index2', compact('votes','err'));
         }
 ///////
