@@ -236,7 +236,7 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
         $time_now = Carbon::now();
         if ($vote->start_at > $time_now)
         {
-            $err = '此投票活動尚未開始';
+            $err = '此投票活動尚未開始；此籤號確定為有效之籤號';
             return View::make('tasks.index2', compact('votes','err'));
         }
         elseif  ($vote->end_at < $time_now)
