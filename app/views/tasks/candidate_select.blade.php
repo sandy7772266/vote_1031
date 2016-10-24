@@ -30,7 +30,7 @@
 					@if ($srch_msg)
 						{{$srch_msg}}
 					@endif
-					
+					<br>
 					<input type="submit" value="確定送出" />
 					<ul class="list-group">
 					@foreach ($candidates as $candidate)
