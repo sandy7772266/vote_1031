@@ -305,7 +305,7 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
         }
 
 
-        return View::make('tasks.candidate_select', compact('candidates', 'account_id','can_select','err_msg','srch_msg'));
+        return View::make('tasks.candidate_select', compact('candidates', 'account_id','can_select','err_msg','srch_msg','array_s'));
         }
 
     } catch(ModelNotFoundException $e) {
@@ -424,7 +424,12 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
                 $candidates = $account->candidates()->get();
 
                 if (!$candidates->isEmpty()) {
-                    $err = "此籤號已於" . $candidates[0]->updated_at . "投票，投給" . $candidates[0]->cname;
+                    $err = "此籤號已於" . $candidates[0]->updated_at . "投票，投給";
+
+                    foreach ($candidates as $candidate){
+                        $err .= $candidate->cname;
+                        $err .= " ";
+                    }
                     return View::make('tasks.index2', compact('votes', 'err'));
                 }
 //            }
@@ -455,10 +460,11 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
             $account_id = Session::get('account_id', '這是預設值，沒設定過就用這個囉！！');
             $err_msg = '';
             $srch_msg = '';
+            $array_s = [];
                 echo '<script type="text/javascript">';
                 echo 'alert("您沒有選擇任何選項!")';
                 echo '</script>';
-            return View::make('tasks.candidate_select',compact('candidates', 'account_id','err_msg','can_select','srch_msg'));
+            return View::make('tasks.candidate_select',compact('candidates', 'account_id','err_msg','can_select','srch_msg','array_s'));
     }
     // return our view and Vote information
    // return View::make('tasks.candidate_select_result',compact('candidates'));
