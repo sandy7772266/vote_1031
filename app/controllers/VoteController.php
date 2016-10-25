@@ -69,8 +69,11 @@ class VoteController extends \BaseController {
 		$vote->school_name=Session::get('school_name');
 		$vote->vote_title=$data['vote_title'];
 		$vote->vote_amount=$data['vote_amount'];
-		$vote->start_at=$data['start_at'];
-		$vote->end_at=$data['end_at'];
+		$temp_date = date("Y-m-d H:i:s", strtotime($data['start_at']));
+		$vote->start_at=$temp_date;
+		// dd($data['start_at']);
+		$temp_date = date("Y-m-d H:i:s", strtotime($data['end_at']));
+		$vote->end_at=$temp_date;
 		$vote->vote_goal=$data['vote_goal'];
 		$vote->can_select=$data['can_select'];
 		$vote->builder_name=Session::get('builder_name');

@@ -7,6 +7,10 @@
 		<script src="{{ asset('js/jquery-2.0.3.min.js') }}" type="text/javascript"></script>
 		<script src="{{ asset('js/application.js') }}" type="text/javascript"></script>
 		<script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('js/moment2.js') }}" type="text/javascript" ></script>
+		<script src="{{ asset('js/bootstrap-datetimepicker.js') }}" type="text/javascript" ></script>
+		<script type="text/javascript" src="js/bootstrap-datetimepicker.js"></script>
+
 	</head>
 		
 	<body>
