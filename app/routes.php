@@ -38,8 +38,12 @@ Route::get('user/data/show', 'AuthController@showUserData');
 Route::get('/insert-first', array('as' => 'vote.insert-first', function() 
     {
         $votes = Vote::get();
+        $tz_object = new DateTimeZone('Asia/Taipei');
+        $datetime = new DateTime();
+        $datetime->setTimezone($tz_object);
+        $date_now = $datetime->format('d/m/Y H:i:s A');
         // return our view and Vote information
-        return View::make('tasks.vote-insert-first', compact('votes'));
+        return View::make('tasks.vote-insert-first', compact('votes','date_now'));
     }));
 
 Route::get('/insert-first2', array('as' => 'vote.insert-first2', function() 
