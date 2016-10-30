@@ -414,10 +414,11 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
             $account_id = Session::get('account_id', '這是預設值，沒設定過就用這個囉！！');
             $err_msg = '';
             $srch_msg = '';
+            $array_s = [];
                 echo '<script type="text/javascript">';
                 echo 'alert("超過可選數目!")';
                 echo '</script>';
-            return View::make('tasks.candidate_select',compact('candidates', 'account_id','err_msg','can_select','srch_msg'));
+            return View::make('tasks.candidate_select',compact('candidates', 'account_id','err_msg','can_select','srch_msg','array_s'));
         }
         else//再一次判斷是否投過票了！*************
         {
