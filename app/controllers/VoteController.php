@@ -64,25 +64,35 @@ class VoteController extends \BaseController {
 	{
 		//
 		$data = Input::all();
+
 		$vote = new Vote;
 		$vote->school_no=Session::get('school_no');
 		$vote->school_name=Session::get('school_name');
 		$vote->vote_title=$data['vote_title'];
 		$vote->vote_amount=$data['vote_amount'];
+
+		$date_now = $this->getDatetimeNow();
+		if (($data['start_at'] < $date_now) or ($data['start_at'] > $data['end_at'])){
+			echo '<script type="text/javascript">';
+            echo 'alert("起始時間不可大於結束時間或小於現在時間")';
+            echo '</script>';
+			return View::make('tasks.vote-insert-first', compact('votes','date_now'));
+		}
+
+
 		$temp_date = date("Y-m-d H:i:s", strtotime($data['start_at']));
 		$vote->start_at=$temp_date;
-		// dd($data['start_at']);
+		
 		$temp_date = date("Y-m-d H:i:s", strtotime($data['end_at']));
 		$vote->end_at=$temp_date;
+		//判斷起始時間是否小於結束時間，並且比現在時間大。
+
+
+
 		$vote->vote_goal=$data['vote_goal'];
 		$vote->can_select=$data['can_select'];
 		$vote->builder_name=Session::get('builder_name');
 		$vote->save();
-
-		$arr=[
-			'vote' => $vote,
-			'flash' => ['type'=>'success','msg' => '新增成功！']
-		];
 
 		$vote_new = DB::table('votes')
                     ->orderBy('id', 'desc')
@@ -100,6 +110,9 @@ class VoteController extends \BaseController {
 		//return Redirect::route('vote.insert-second');
 		return Redirect::route('vote.insert-second', array('vote_id' => $vote_id));	
 		//Redirect::action('VoteController@passsec', ['id' => $vote_id]);
+
+
+
 	}
     //修改部分 end
 
@@ -176,6 +189,15 @@ class VoteController extends \BaseController {
 		return $Hash; 
 	} 
 
+
+	function getDatetimeNow() {
+	    $tz_object = new DateTimeZone('Asia/Taipei');
+	   
+	    $datetime = new DateTime();
+	    $datetime->setTimezone($tz_object);
+	    $date_time = $datetime->format('d/m/Y H:i:s A');
+	    return $date_time;
+	}
 
 	/**
 	 * Display the specified resource.
@@ -292,6 +314,8 @@ public function redo($id)
         Session::put('redo', 1);
 
 	}
+
+
 
 
 }

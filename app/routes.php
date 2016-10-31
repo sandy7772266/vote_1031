@@ -307,6 +307,8 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
                 $srch_msg = "搜尋不到";
             }
         }
+        Session::put('candidates',$candidates);
+        Session::put('array_s',$array_s);
 
 
         return View::make('tasks.candidate_select', compact('candidates', 'account_id','can_select','err_msg','srch_msg','array_s'));
