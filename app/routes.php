@@ -440,7 +440,8 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
                     return View::make('tasks.index2', compact('votes', 'err'));
                 }
 //            }
-            echo "投票完成！<br>您選擇的是：<br>";
+            
+            echo "<center>投票完成！<br>您選擇的是：<br>";
             //$data = Input::all();
             //dd($data['candidate'][0]);
              foreach ($cadidates_checked as $candidate_id){
@@ -450,9 +451,13 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
                  $candidate->accounts()->save($account);
                  $candidate->total_count ++;
                  $candidate->save();
+                
              }
+             $err = '';
+             echo "</center>";
+             return View::make('tasks.index2', compact('votes','err'));
         }
-        //echo $account_id;
+        
     }
     else{
 
