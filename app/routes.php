@@ -321,17 +321,19 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
 
 }));
 
-Route::get('/school_select/', array('as' => 'school_select', function()
+Route::get('/put_parameter/', array('as' => 'put_parameter', function()
 {
-            $err='';
-           return View::make('tasks.school_select', compact('err'));
+            Session::put('result_request', 'true');
+            return Redirect::action('AuthController@openIDLogin');
 
    }));
+
 Route::get('/vote_result_show_index/', array('as' => 'vote_result_show_index', function()
 {
-    $data = Input::all();
-    $school_no = $data['school_no'];
-    $votes = Vote::where('school_no', '=', $school_no)->get();
+    //$data = Input::all();
+   
+    $school_no = Session::get('school_no');
+    $votes = Vote::where('school_no', '=', $school_no)->orderBy('end_at')->where('public_or_private', '=', 1)->get();
     $time_now = Carbon::now();
     if (!$votes->isEmpty())
     {

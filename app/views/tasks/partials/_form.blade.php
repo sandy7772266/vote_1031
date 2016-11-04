@@ -32,6 +32,9 @@
                        name="vote_goal" />      
                      <input type="text" class="form-control" placeholder="可投票數...." autofocus required
                          name="can_select" />  
+                     <input type="text" class="form-control" placeholder="公開(1)...." autofocus required
+                         name="public_or_private" />  
+                         
 
 <script type="text/javascript">
             $(function () {

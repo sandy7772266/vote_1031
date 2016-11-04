@@ -24,6 +24,7 @@ class CreateVotesTable extends Migration {
 			$table->integer('vote_goal');
 			$table->integer('can_select');
 			$table->string('builder_name');
+			$table->integer('public_or_private');
 			$table->timestamps();
 		});
 	}

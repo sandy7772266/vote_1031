@@ -91,6 +91,7 @@ class VoteController extends \BaseController {
 
 		$vote->vote_goal=$data['vote_goal'];
 		$vote->can_select=$data['can_select'];
+		$vote->public_or_private=$data['public_or_private'];
 		$vote->builder_name=Session::get('builder_name');
 		$vote->save();
 

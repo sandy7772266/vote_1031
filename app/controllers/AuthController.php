@@ -85,7 +85,11 @@ class AuthController extends BaseController {
                 	//echo "資訊22";  echo $role;
                 	Session::put('school_no', $item->id);
 					Session::put('school_name', $item->name);
+					//如果是組長才存'builder_name',
+						  //一班老師則儲存'teacher_name'
 					Session::put('builder_name', $user_data['namePerson']);
+
+					Session::put('teacher_name', $user_data['namePerson']);
 					//Session::put('user_session', $user_data);
                 }
                 
@@ -119,7 +123,17 @@ class AuthController extends BaseController {
 		// echo "Session 裡現在什麼都沒有：";
 		// $this->mydd(Session::get('login_session', '這是預設值，沒設定過就用這個囉！！'));
 		// Redirect::action('VoteController@index');
-		return Redirect::route('home');
+		//dd($result_request);
+		$result_request = Session::get('result_request');
+		if ($result_request == true){
+
+			return Redirect::route('vote_result_show_index');
+
+		}	
+		else{
+
+			return Redirect::route('home');
+		}	
 	}
 
 	/**

@@ -29,8 +29,24 @@
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav test">
-						<li><a href="{{route('school_select')}}">投票結果</a></li>
+						
+					@if (!Session::has('school_no'))
+						<li><a href="{{route('put_parameter')}}">投票結果</a></li>
+					@else
+						<li><a href="{{route('vote_result_show_index')}}">投票結果</a></li>
+					@endif
 					</ul>
+					@if (Session::has('teacher_name'))
+					<ul class="nav navbar-nav test">
+				
+						<li><a href="{{route('logout/openid')}}">登出</a></li>
+							
+					</ul>
+					@endif
+
+
+
+
 					<ul class="nav navbar-nav">
 					@if (Session::has('builder_name'))
 						

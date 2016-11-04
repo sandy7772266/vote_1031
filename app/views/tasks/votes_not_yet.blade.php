@@ -23,7 +23,12 @@
 			<li class="list-group-item">
 				<table>
 				<tr>
-				<td ><strong>{{$vote->vote_title}}<br>now:{{$time_now}}<br>start:{{$vote->start_at}}end:{{$vote->end_at}}</strong></td>
+				<td ><strong>{{$vote->vote_title}}<br>
+				@if ( $vote->public_or_private == 0)
+				不公開<br>
+				@endif
+
+				now:{{$time_now}}<br>start:{{$vote->start_at}}end:{{$vote->end_at}}</strong></td>
 				<td >
 				@if ($ary[1][$vote->id]<>'沒有資料')
 

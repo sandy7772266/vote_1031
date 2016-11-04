@@ -22,6 +22,7 @@
 				當選人數：{{Form::text('vote_goal')}}<br>
 				可投票數：{{Form::text('can_select')}}<br>
 				建 立 者：{{$vote->builder_name}}<br>
+				公開(1)：{{Form::text('public_or_private')}}<br>
 			 
 				{{$vote->id}}<br>
 				<input type="submit"  />
