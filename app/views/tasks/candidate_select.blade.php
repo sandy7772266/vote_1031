@@ -34,8 +34,9 @@
 						{{$srch_msg}}<br>
 					 
 					@endif
-
-									
+					@if (!Input::old('candidates')==null)
+						{{Input::old('candidates')|json}}
+					@endif
 					<input type="submit" value="確定送出" />
 					<ul class="list-group">
 					@foreach ($candidates as $candidate)
@@ -53,8 +54,8 @@
                				@endif/> -->
 							{{$candidate->cname}} ** {{$candidate->job_title}}**	{{$candidate->sex}}
 							
-							<label {{ $candidate->cname }}">
-				            <strong>{{{ $candidate->cname }}}</strong>
+							
+				            
 				       		</label>
 							</h5>
 						</li>

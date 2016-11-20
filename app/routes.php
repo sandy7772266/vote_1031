@@ -333,7 +333,7 @@ Route::get('/vote_result_show_index/', array('as' => 'vote_result_show_index', f
     //$data = Input::all();
    
     $school_no = Session::get('school_no');
-    $votes = Vote::where('school_no', '=', $school_no)->orderBy('end_at')->where('public_or_private', '=', 1)->get();
+    $votes = Vote::where('school_no', '=', $school_no)->where('public_or_private', '=', 1)->orderBy('end_at')->get();
     $time_now = Carbon::now();
     if (!$votes->isEmpty())
     {
@@ -414,11 +414,13 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
         $vote = Vote::find($account->vote_id);
         if (count($cadidates_checked)>$vote->can_select){
             $can_select = $vote->can_select;
-            $candidates = Candidate::where('vote_id', '=', $account->vote_id)->get();
+            $candidates = Session::get('candidates');
+            // $candidates = Candidate::where('vote_id', '=', $account->vote_id)->get();
             $account_id = Session::get('account_id', '這是預設值，沒設定過就用這個囉！！');
             $err_msg = '';
             $srch_msg = '';
-            $array_s = [];
+            $array_s = Session::get('array_s');;
+
                 echo '<script type="text/javascript">';
                 echo 'alert("超過可選數目!")';
                 echo '</script>';
@@ -472,11 +474,13 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
             $account = Account::find($account_id);
             $vote = Vote::find($account->vote_id);
             $can_select = $vote->can_select;
-            $candidates = Candidate::where('vote_id', '=', $account->vote_id)->get();
+            
+            $candidates = Session::get('candidates');
+            // $candidates = Candidate::where('vote_id', '=', $account->vote_id)->get();
             $account_id = Session::get('account_id', '這是預設值，沒設定過就用這個囉！！');
             $err_msg = '';
             $srch_msg = '';
-            $array_s = [];
+            $array_s = Session::get('array_s');;
                 echo '<script type="text/javascript">';
                 echo 'alert("您沒有選擇任何選項!")';
                 echo '</script>';
@@ -541,6 +545,10 @@ Route::get('/candidates_select_result2/', array('as' => 'candidates_select_resul
              }
              $err = '';
              echo "</center>";
+             Session::forget('candidates');
+             Session::forget('array_s');
+
+
              return View::make('tasks.index2', compact('votes','err'));
         }
         
