@@ -34,8 +34,8 @@
 						{{$srch_msg}}<br>
 					 
 					@endif
-					@if (!Input::old('candidates')==null)
-						{{Input::old('candidates')|json}}
+					@if (!count($candidates_checked)==0)
+						{{$candidates_checked[0]}}
 					@endif
 					<input type="submit" value="確定送出" />
 					<ul class="list-group">
