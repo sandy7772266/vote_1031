@@ -103,9 +103,8 @@ Route::get('/manage', array('as' => 'manage', function()
 Route::get('/voting', array('as' => 'voting', function() 
     {
         $time_now = Carbon::now();
-
-        $votes = Vote::get();
-        //dd($votes);
+        $school_no = Session::get('school_no');
+        $votes = Vote::where('school_no', '=', $school_no)->get();
         $ary[0] = $votes;
         foreach ($ary[0] as $vote){
            // $candidate = Candidate::find($vote->id);
@@ -124,9 +123,8 @@ Route::get('/voting', array('as' => 'voting', function()
 Route::get('/votes_not_yet', array('as' => 'votes_not_yet', function() 
     {
         $time_now = Carbon::now();
-
-        $votes = Vote::get();
-        //dd($votes);
+        $school_no = Session::get('school_no');
+        $votes = Vote::where('school_no', '=', $school_no)->get();
         $ary[0] = $votes;
         foreach ($ary[0] as $vote){
            // $candidate = Candidate::find($vote->id);
@@ -147,8 +145,8 @@ Route::get('/votes_done', array('as' => 'votes_done', function()
     {
         $time_now = Carbon::now();
 
-        $votes = Vote::get();
-        //dd($votes);
+        $school_no = Session::get('school_no');
+        $votes = Vote::where('school_no', '=', $school_no)->get();
         $ary[0] = $votes;
         foreach ($ary[0] as $vote){
            // $candidate = Candidate::find($vote->id);

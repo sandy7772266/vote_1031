@@ -26,17 +26,13 @@
 	{{ Form::open(['class' => 'form','method'=>'get','route'=>['candidates_select_result']]) }}
 
 					@if (!$err_msg == '')
-						{{$err_msg}}<br>
-					 
+						{{$err_msg}}<br>		 
 					@endif
 
 					@if (!$srch_msg == '')
-						{{$srch_msg}}<br>
-					 
+						{{$srch_msg}}<br>					 
 					@endif
-					@if (!count($candidates_checked)==0)
-						{{$candidates_checked[0]}}
-					@endif
+					
 					<input type="submit" value="確定送出" />
 					<ul class="list-group">
 					@foreach ($candidates as $candidate)
@@ -46,7 +42,12 @@
 							@else <h5 >
 							@endif
 							
-							<input tabindex="1" type="checkbox" name="candidate[]" id={{$candidate->id}} value={{$candidate->id}} /> 
+							<input tabindex="1" type="checkbox" name="candidate[]" id={{$candidate->id}} value={{$candidate->id}} 
+
+							@if (in_array($candidate->id, $candidates_checked))
+								checked
+							@endif
+							/> 
 							<!-- @if (is_array(Input::old('candidate')))
 							@if (in_array($candidate->id, Input::old('candidate')))
                    				 echo 'checked="checked"'; 
