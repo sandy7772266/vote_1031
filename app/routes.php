@@ -310,8 +310,23 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
         Session::put('array_s',$array_s);
 
 
-        return View::make('tasks.candidate_select', compact('candidates', 'account_id','can_select','err_msg','srch_msg','array_s','candidates_checked'));
+        return View::make(
+                'tasks.candidate_select',
+                compact(
+                    'candidates',
+                    'account_id',
+                    'can_select',
+                    'err_msg',
+                    'srch_msg',
+                    'array_s',
+                    'candidates_checked'
+                )
+            );
         }
+
+
+
+
 
     } catch(ModelNotFoundException $e) {
         $err = "投票代號或籤號錯誤";
@@ -423,7 +438,8 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
                 echo '<script type="text/javascript">';
                 echo 'alert("超過可選數目!")';
                 echo '</script>';
-            return View::make('tasks.candidate_select',compact('candidates', 'account_id','err_msg','can_select','srch_msg','array_s','candidates_checked'));
+            // return View::make('tasks.candidate_select',compact('candidates', 'account_id','err_msg','can_select','srch_msg','array_s','candidates_checked')); 
+                return View::make('tasks.candidate_select',compact('candidates', 'account_id','can_select','srch_msg','array_s','candidates_checked'));
         }
         else//再一次判斷是否投過票了！*************
         {
@@ -485,93 +501,6 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
                 echo 'alert("您沒有選擇任何選項!")';
                 echo '</script>';
             return View::make('tasks.candidate_select',compact('candidates', 'account_id','err_msg','can_select','srch_msg','array_s','candidates_checked'));
-    }
-    // return our view and Vote information
-   // return View::make('tasks.candidate_select_result',compact('candidates'));
-}));
-Route::get('/candidates_select_result2/', array('as' => 'candidates_select_result2', function()
-{
-    $candidates_checked = Input::get('candidate');
-    if(is_array($candidates_checked))
-    {
-        $account_id = Session::get('account_id', '這是預設值，沒設定過就用這個囉！！');
-        //echo $account_id;
-
-       //dd('5');
-        $account = Account::find($account_id);
-        $vote = Vote::find($account->vote_id);
-        if (count($candidates_checked)>$vote->can_select){
-            $can_select = $vote->can_select;
-            $candidates = Candidate::where('vote_id', '=', $account->vote_id)->get();
-            $account_id = Session::get('account_id', '這是預設值，沒設定過就用這個囉！！');
-            $err_msg = '';
-            $srch_msg = '';
-            $array_s = [];
-                echo '<script type="text/javascript">';
-                echo 'alert("超過可選數目!")';
-                echo '</script>';
-            $can_check = 'test';
-            return View::make('tasks.candidate_select',compact('candidates', 'account_id','err_msg','can_select','srch_msg','array_s','can_check'));
-        }
-        else//再一次判斷是否投過票了！*************
-        {
-
-//            try {
-               // $account = Account::where('vote_id', '=', $vote_id)->where('username', '=', $account)->firstorfail();
-                $account_id = $account->id;
-                $candidates = $account->candidates()->get();
-
-                if (!$candidates->isEmpty()) {
-                    $err = "此籤號已於" . $candidates[0]->updated_at . "投票，投給";
-
-                    foreach ($candidates as $candidate){
-                        $err .= $candidate->cname;
-                        $err .= " ";
-                    }
-                    return View::make('tasks.index2', compact('votes', 'err'));
-                }
-//            }
-            
-            echo "<center>投票完成！<br>您選擇的是：<br>";
-            //$data = Input::all();
-            //dd($data['candidate'][0]);
-             foreach ($cadidates_checked as $candidate_id){
-                 $candidate = Candidate::find($candidate_id);
-                 echo ($candidate->cname);
-                 echo "<br>";
-                 $candidate->accounts()->save($account);
-                 $candidate->total_count ++;
-                 $candidate->save();
-                
-             }
-             $err = '';
-             echo "</center>";
-             Session::forget('candidates');
-             Session::forget('array_s');
-
-
-             return View::make('tasks.index2', compact('votes','err'));
-        }
-        
-    }
-    else{
-
-            $account_id = Session::get('account_id', '這是預設值，沒設定過就用這個囉！！');
-            //echo $account_id;
-
-           //dd('5');
-            $account = Account::find($account_id);
-            $vote = Vote::find($account->vote_id);
-            $can_select = $vote->can_select;
-            $candidates = Candidate::where('vote_id', '=', $account->vote_id)->get();
-            $account_id = Session::get('account_id', '這是預設值，沒設定過就用這個囉！！');
-            $err_msg = '';
-            $srch_msg = '';
-            $array_s = [];
-                echo '<script type="text/javascript">';
-                echo 'alert("您沒有選擇任何選項!")';
-                echo '</script>';
-            return View::make('tasks.candidate_select',compact('candidates', 'account_id','err_msg','can_select','srch_msg','array_s'));
     }
     // return our view and Vote information
    // return View::make('tasks.candidate_select_result',compact('candidates'));

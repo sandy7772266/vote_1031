@@ -25,7 +25,8 @@
 
 	{{ Form::open(['class' => 'form','method'=>'get','route'=>['candidates_select_result']]) }}
 
-					@if (!$err_msg == '')
+					
+					@if (isset($err_msg) && ($err_msg == ''))
 						{{$err_msg}}<br>		 
 					@endif
 
