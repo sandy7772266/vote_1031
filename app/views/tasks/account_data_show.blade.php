@@ -6,7 +6,7 @@
 @section('content')
 <div class="col-md-6">
 	
-	<ul class="list-group">
+	
 	<?php 
 			$index=1;
 	      	$redo = $data[3];
@@ -20,27 +20,33 @@
 
 	    @endif
 	籤票共 {{count($data[0])}}  張
-		@foreach ($data[0] as $account)
-			<li class="list-group-item">
-				{{$index ++}}
-				學校代號：{{$data[1]}}
-				投票代號：{{$account->vote_id}}
-				籤號：{{$account->username}}
-				起始時間：{{$data[4]}}
-				結束時間：{{$data[5]}}
-
-						<!--{{$account->finish_at}}
- -->
-
-				<br>
+	<table class="table table-bordered">
+		<tr>
+		@foreach ($data[0] as $index =>$account)
+			
+			
 				
-			</li>
+				<td>
+				
+				{{$index+1}}
+				學校代號：{{$data[1]}}<br>
+				投票代號：{{$account->vote_id}}<br>
+				籤號：{{$account->username}}<br>
+				起始時間：{{$data[4]}}<br>
+				結束時間：{{$data[5]}}{{$index}}
+				</td>
+				@if (($index % 2) == 1)
+					</tr><tr>
+				@endif
+					
+
+			
 		@endforeach
+			</tr>
+	</table>
 
-	    
 
-
-	</ul>
+	
 </div>
 
 @stop
