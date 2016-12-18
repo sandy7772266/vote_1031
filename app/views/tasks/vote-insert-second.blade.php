@@ -15,7 +15,7 @@
 		<br>接受檔案附檔名為  xls 或 xlsx
 	</h5>
 
-	<a href="{{ url('001.xls') }}"><strong>範例檔案</strong></a>	                                               
+	<a href="{{ url('001.xls') }}"><strong>範例檔案下載</strong></a>	                                               
     
 	{{Form::open(array('url' => 'file_import', 'files' => true))}}
 	{{Form::file('image')}}

@@ -11,7 +11,7 @@
 		@foreach ($accounts as $account)
 			<li class="list-group-item">
 
-				{{$account->username}}
+				<h5>{{$account->username}}</h5>
 				<br>
 
 

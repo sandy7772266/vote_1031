@@ -5,9 +5,10 @@
 
 @section('content')
 
-
+<?php $school_name_session = Session::get('school_name');?>
 	<div class="col-md-6">
-		<h4>投票進行中</h4>
+		<h4>{{$school_name_session}}：投票進行中</h4>
+	
 				@foreach ($ary[0] as $vote)
 
 					@if (( $time_now < $vote->end_at ) & ( $time_now > $vote->start_at))

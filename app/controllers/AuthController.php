@@ -86,7 +86,7 @@ class AuthController extends BaseController {
                 	Session::put('school_no', $item->id);
 					Session::put('school_name', $item->name);
 					//如果是組長才存'builder_name',
-						  //一班老師則儲存'teacher_name'
+						  //一般老師則儲存'teacher_name'
 					Session::put('builder_name', $user_data['namePerson']);
 
 					Session::put('teacher_name', $user_data['namePerson']);

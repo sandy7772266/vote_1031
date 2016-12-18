@@ -229,15 +229,25 @@ Route::get('/candidates_select/', array('as' => 'candidates_select', function()
                 $candidate_names =  $candidate_names . '**';
             }
 
-            $err = "此籤號已於" . $candidates[0]->updated_at . "投票，投給" . $candidate_names;
+             $err = "此籤號已於" . $candidates[0]->updated_at . "完成投票";
+
+                    if (Session::has('builder_name')){
+
+                        $err .= "，投給" . $candidate_names;
+                    }
+
             return View::make('tasks.index2', compact('votes','err'));
         }
 ///////
         //$vote_id =$data['vote_id'];
         $vote = Vote::find($vote_id);
-       //dd($vote);
+        Session::put('vote_title', $vote->vote_title);
+        Session::put('school_name', $vote->school_name);
         $time_now = Carbon::now();
-        if ($vote->start_at > $time_now)
+        $date_n = new DateTime("now");
+        $date_s = new DateTime($vote->start_at);
+
+        if ($date_s > $date_n)
         {
             $err = '此投票活動尚未開始；此籤號確定為有效之籤號';
             return View::make('tasks.index2', compact('votes','err'));
@@ -450,12 +460,19 @@ Route::get('/candidates_select_result/', array('as' => 'candidates_select_result
                 $candidates = $account->candidates()->get();
 
                 if (!$candidates->isEmpty()) {
-                    $err = "此籤號已於" . $candidates[0]->updated_at . "投票，投給";
-
-                    foreach ($candidates as $candidate){
-                        $err .= $candidate->cname;
-                        $err .= " ";
+                    $candidate_names = '';
+                    foreach ($candidates as $candidate) {
+                        $candidate_names =  $candidate_names . $candidate->cname;
+                        $candidate_names =  $candidate_names . '**';
                     }
+
+                    $err = "此籤號已於" . $candidates[0]->updated_at . "完成投票";
+
+                    if (Session::has('builder_name')){
+
+                        $err .= "，投給" . $candidate_names;
+                    }
+
                     return View::make('tasks.index2', compact('votes', 'err'));
                 }
 //            }

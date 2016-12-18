@@ -72,9 +72,15 @@ class VoteController extends \BaseController {
 		$vote->vote_amount=$data['vote_amount'];
 
 		$date_now = $this->getDatetimeNow();
-		if (($data['start_at'] < $date_now) or ($data['start_at'] > $data['end_at'])){
+		$date_n = new DateTime("now");
+		$date_s = new DateTime($data['start_at']);
+		$date_e = new DateTime($data['end_at']);
+
+		if (($date_s< $date_n) or ($date_s > $date_e)){
+			//dd($date_now,$data['start_at'] ,$data['end_at'] ) ;
 			echo '<script type="text/javascript">';
             echo 'alert("起始時間不可大於結束時間或小於現在時間")';
+
             echo '</script>';
 			return View::make('tasks.vote-insert-first', compact('votes','date_now'));
 		}
@@ -144,7 +150,7 @@ class VoteController extends \BaseController {
 				$zero_str .= '0';
 			}
 		$index_no = $zero_str.$x;
-		$Caracteres = 'ABCDEFGHJKLMPQRSTUVXWYZ23456789';
+		$Caracteres = 'ABCDEFGHKLMPQRSTUVXWYZ23456789';
 		$index_str = '';
 			for ($y=0;$y<strlen($index_no);$y++){ 
 				$index_ary[$y] = intval(substr($index_no, $y, 1));
@@ -177,7 +183,7 @@ class VoteController extends \BaseController {
 
 	function GeraHash($qx){ 
         //Under the string $Caracteres you write all the characters you want to be used to randomly generate the code. 
-        $Caracteres = 'ABCDEFGHJKLMPQRSTUVXWYZ23456789'; 
+        $Caracteres = 'ABCDEFGHKLMPQRSTUVXWYZ23456789'; 
         $QuantidadeCaracteres = strlen($Caracteres); 
         $QuantidadeCaracteres--; 
 

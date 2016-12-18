@@ -4,7 +4,19 @@
 
 
 @section('content')
-	<h5 class="text-primary">
+	@if (Session::has('vote_title'))
+
+	<?php 	$id_session = Session::get('vote_id');
+			$account_session = Session::get('account');
+			$title_session = Session::get('vote_title');
+			$school_name_session = Session::get('school_name');
+	?>
+
+	<h4>{{$school_name_session}}：{{$title_session}}<br>投票代號：{{$id_session}}
+	籤號：{{$account_session}}</h4>
+
+	@endif
+ 	<h5 class="text-primary">
 	票數限制： {{$can_select}}
 	<br>
 	敬請注意：一旦點選[確定送出]或按enter鍵，就算完成投票，不可返回修改。

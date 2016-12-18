@@ -36,7 +36,7 @@
 						<li><a href="{{route('vote_result_show_index')}}">投票結果</a></li>
 					@endif
 					</ul>
-					@if (Session::has('teacher_name'))
+					@if ((Session::has('teacher_name')) or (Session::has('builder_name')))
 					<ul class="nav navbar-nav test">
 				
 						<li><a href="{{route('logout/openid')}}">登出</a></li>
@@ -61,7 +61,7 @@
  
             <li><a href="{{route('votes_done')}}">投票已完成</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="{{route('logout/openid')}}">管理者登出</a></li>
+           <!--  <li><a href="{{route('logout/openid')}}">管理者登出</a></li> -->
           </ul>
  </li>
 

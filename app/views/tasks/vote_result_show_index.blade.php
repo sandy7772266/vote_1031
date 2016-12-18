@@ -15,11 +15,11 @@
 				<table>
 				<tr>
 					@if ( $time_now > $vote->end_at )
-				<td ><a href="{{ url('/vote_result_show', array($vote->id), false) }}"><strong>{{$vote->vote_title}}<br>now:{{$time_now}}<br>start:{{$vote->start_at}}end:{{$vote->end_at}}</strong></a>
+				<td ><a href="{{ url('/vote_result_show', array($vote->id), false) }}"><strong><h4>{{$vote->vote_title}}</h4><br>now:{{$time_now}}<br>start:{{$vote->start_at}}end:{{$vote->end_at}}</strong></a>
 					@elseif ( $time_now > $vote->start_at)
-						<td >投票進行中...<strong>{{$vote->vote_title}}<br>now:{{$time_now}}<br>start:{{$vote->start_at}}end:{{$vote->end_at}}</strong>
+						<td ><h4>投票進行中...<strong>{{$vote->vote_title}}</h4><br>now:{{$time_now}}<br>start:{{$vote->start_at}}end:{{$vote->end_at}}</strong>
 					@else
-						<td >尚未投票...<strong>{{$vote->vote_title}}<br>now:{{$time_now}}<br>start:{{$vote->start_at}}end:{{$vote->end_at}}</strong>
+						<td ><h4>尚未投票...<strong>{{$vote->vote_title}}</h4><br>now:{{$time_now}}<br>start:{{$vote->start_at}}end:{{$vote->end_at}}</strong>
 					@endif
 				
 
